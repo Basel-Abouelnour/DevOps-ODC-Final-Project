@@ -74,6 +74,13 @@ pipeline {
                }
            }
         }
+        stage('Running Ansible Playbook') {
+           steps{
+               script{
+                    sh 'ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i hosts.ini playbook.yml'
+               }
+           }
+        }
         
         
     }
