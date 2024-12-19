@@ -1,0 +1,60 @@
+---
+- name: Update, install Docker, and deploy containers
+  hosts: vagrant
+  become: yes
+  vars:
+    docker_image_name: "baselabouelnour/devops-odc-final-project:latest"  # Replace with your Docker Hub image
+    container_name: "the-weather-app"                  # Customize the container name
+
+  tasks:
+    # Step 1: Update the system and install Docker
+    - name: Update the system
+      apt:
+        update_cache: yes
+        upgrade: dist
+
+    - name: Install required packages for Docker
+      apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - software-properties-common
+        state: present
+
+    - name: Add Docker GPG key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Add Docker repository
+      apt_repository:
+        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable
+        state: present
+
+    - name: Install Docker
+      apt:
+        name: docker-ce
+        state: present
+
+    - name: Start and enable Docker service
+      systemd:
+        name: docker
+        state: started
+        enabled: yes
+
+    # Step 2: Pull and run the Docker image
+    - name: Pull Docker image from Docker Hub
+      docker_image:
+        name: "{{ docker_image_name }}"
+        source: pull
+
+    - name: Run Docker container
+      docker_container:
+        name: "{{ container_name }}"
+        image: "{{ docker_image_name }}"
+        state: started
+        restart_policy: always
+        ports:
+          - "5000:5000"  # Map port 8080 on host to port 80 in the container (adjust as needed)
+
