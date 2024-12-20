@@ -66,8 +66,8 @@ This project demonstrates how to set up a CI/CD pipeline using GitHub, Jenkins, 
 
 4. Push the Docker image:
    ```bash
-   docker build -t <your-image-name> .
-   docker push <your-dockerhub-username>/<your-image-name>
+   docker build -t baselabouelnour/devops-odc-final-project .
+   docker push baselabouelnour/devops-odc-final-project
    ```
 
 5. Configure Jenkins:
