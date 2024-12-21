@@ -94,7 +94,14 @@ This project demonstrates how to set up a CI/CD pipeline using GitHub, Jenkins, 
      ![Pipeline success](images/Pipeline-after-cleanup.png)
    - The Weather app should be working on the two vagrant machines
      
-     ![Working App](images/working-machines-firefox.png) 
+     ![VM1 docker ps output](images/VM1-docker-ps.png)
+
+     ![VM2 docker ps output](images/VM2-docker-ps.png)
+     
+     ![Working App](images/The-Weather-App.png)
+
+     ![Working App](images/The-Weather-App-Data.png)
+
 ***
 
 
