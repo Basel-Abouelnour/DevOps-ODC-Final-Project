@@ -98,5 +98,9 @@ This project demonstrates how to set up a CI/CD pipeline using GitHub, Jenkins, 
 ---
 
 ## Steps to Run the Project
-- All you need to run this project is to build the Jenkins Pipeline and everything should be done automatically
+- All you need to run this project is to clone the repo using
+  ```
+  git clone git@github.com:Basel-Abouelnour/DevOps-ODC-Final-Project.git
+  ```
+- Then build the Jenkins Pipeline and everything should be done automatically
 ---
