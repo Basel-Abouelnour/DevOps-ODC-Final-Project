@@ -65,13 +65,13 @@ This project demonstrates how to set up a CI/CD pipeline using GitHub, Jenkins, 
    - Copy the SSH keys to the Ubuntu ansible machine.
    - Write an Ansible [playbook](playbook.yml) and [inventory](hosts.ini) to deploy the application.
    - The [playbook](playbook.yml) does the following tasks:-
-     1- Updates the Vagrant machines
-     2- Install required packages for Docker
-     3- Add Docker GPG key
-     4- Add Docker repository
-     5- Install Docker 
-     6- Start the service and enable it
-     7- Run the Docker Container 
+     1. Updates the Vagrant machines
+     2. Install required packages for Docker
+     3. Add Docker GPG key
+     4. Add Docker repository
+     5. Install Docker 
+     6. Start the service and enable it
+     7. Run the Docker Container 
    - make sure everything is working manually without an issue using the commands
      ```bash
      ansible all -m ping -u root
@@ -99,6 +99,7 @@ This project demonstrates how to set up a CI/CD pipeline using GitHub, Jenkins, 
 ---
 
 ## Steps to Run the Project
+- If you don't have the tools mentioned, you can download them using [Prerequisites script template](prerequisites-script-template.sh) after editiing some lines highlighted in the script.
 - All you need to run this project is to clone the repo using
   ```
   git clone git@github.com:Basel-Abouelnour/DevOps-ODC-Final-Project.git
