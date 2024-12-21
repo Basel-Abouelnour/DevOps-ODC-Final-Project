@@ -13,13 +13,10 @@ $(. /etc/os-release && echo "$VERSION_CODENAME") stable" |   sudo tee /etc/apt/s
 sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
-
-
-
 ########################################################
 # adding docker to sudoers group <<<change username>>>
 ########################################################
-sudo usermod -aG docker #<your usrname should be here instead of the comment>
+sudo usermod -aG docker $1 #<your usrname should be here instead of the comment>
 sudo systemctl restart docker
 newgrp docker
 
@@ -28,11 +25,8 @@ docker ps -a
 # history
 
 
-
-#Jenkins Installation
-
-
-#Java Prerequisite
+# Jenkins Installation
+## Java Prerequisite
 sudo apt update
 sudo apt install fontconfig openjdk-17-jre
 java -version 							
@@ -41,7 +35,7 @@ java -version
 #OpenJDK Runtime Environment (build 17.0.8+7-Debian-1deb12u1)
 #OpenJDK 64-Bit Server VM (build 17.0.8+7-Debian-1deb12u1, mixed mode, sharing)
 
-#Jenkins 
+## Jenkins 
 sudo wget -O /usr/share/keyrings/jenkins-keyring.asc \
   https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
 echo "deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc]" \
@@ -51,9 +45,8 @@ sudo apt-get update
 sudo apt-get install jenkins
 
 
-# Creating Docker group and adding jenkins as a user in it
-
-sudo usermod -aG docker   #<your usrname should be here instead of the comment>			# root as an example  or the user
+## Creating Docker group and adding jenkins as a user in it
+sudo usermod -aG docker $1  #<your usrname should be here instead of the comment>			# root as an example  or the user
 sudo usermod -aG docker jenkins
 sudo systemctl restart docker
 newgrp docker
@@ -67,30 +60,3 @@ sudo apt update
 sudo apt install software-properties-common
 sudo add-apt-repository --yes --update ppa:ansible/ansible
 sudo apt install ansible
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
