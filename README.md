@@ -18,8 +18,9 @@ This project demonstrates how to set up a CI/CD pipeline using GitHub, Jenkins, 
   - Jenkins
     - Ansible Plugin
     - Blue Ocean Plugin
-  - Ansible 
-
+  - Ansible
+    
+***Prerequisites could be downloaded using the [Prerequisites script template](prerequisites-script-template.sh) after editiing some usernames mentioned in the script.***
 
 ---
 
