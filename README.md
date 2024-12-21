@@ -84,12 +84,12 @@ This project demonstrates how to set up a CI/CD pipeline using GitHub, Jenkins, 
      - Clone or fetch updates from the repository.
      - Build a Docker image and push it to Docker Hub.
      - runs the ansible playbook
-     - Build the pipeline
+     - Clean previous unused images and containers.
 ***
        
 ### 4. *Results*
    - The Output of these steps should be the success of the pipeline
-     ![Pipeline success](images/Pipeline.png)
+     ![Pipeline success](images/Pipeline-after-cleanup.png)
    - The Weather app should be working on the two vagrant machines
      ![Working App](images/working-machines-firefox.png) 
 ***
