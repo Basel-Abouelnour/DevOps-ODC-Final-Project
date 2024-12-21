@@ -20,7 +20,7 @@ This project demonstrates how to set up a CI/CD pipeline using GitHub, Jenkins, 
     - Blue Ocean Plugin
   - Ansible
     
-***Prerequisites could be downloaded using the [Prerequisites script template](prerequisites-script-template.sh) after editiing some usernames mentioned in the script.***
+***Prerequisites could be downloaded using the [Prerequisites script template](prerequisites-script-template.sh), it takes the first inline argument as the machine user.***
 
 ---
 
@@ -108,7 +108,7 @@ This project demonstrates how to set up a CI/CD pipeline using GitHub, Jenkins, 
 ---
 
 ## Steps to Run the Project
-- If you don't have the tools mentioned, you can download them using [Prerequisites script template](prerequisites-script-template.sh) after editiing some lines highlighted in the script.
+- If you don't have the tools mentioned, you can download them using [Prerequisites script template](prerequisites-script-template.sh) and give it the first inline argument as linux user.
 - All you need to run this project is to clone the repo using
   ```
   git clone git@github.com:Basel-Abouelnour/DevOps-ODC-Final-Project.git
