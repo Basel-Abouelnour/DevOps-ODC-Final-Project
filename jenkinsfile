@@ -58,10 +58,10 @@ pipeline {
             }
         }
         stage('Push to Docker Hub') {
-           steps{
-               script{
-                   echo "Logging in to Docker Hub"
-                   withCredentials([usernamePassword(
+          steps{
+              script{
+                  echo "Logging in to Docker Hub"
+                  withCredentials([usernamePassword(
                         credentialsId: 'b9aaad60-a113-4e81-b583-ec9d9b09f8fb', // The ID of the credentials
                         usernameVariable: 'DOCKER_USER',
                         passwordVariable: 'DOCKER_PASSWORD'
@@ -71,8 +71,18 @@ pipeline {
                         docker push ${DOCKER_IMAGE}
                         """
                     }
-               }
-           }
+              }
+          }
+        }
+        stage('Cleanup'){
+            steps{
+                script{
+                    echo "Cleaning up environment...."
+                    sh "docker container prune -f"//unused containers
+                    sh "docker image prune -f" //for unused images
+                    sh "docker volume prune -f"//same but for volumes
+                }
+            }
         }
         stage('Running Ansible Playbook') {
            steps{
@@ -82,7 +92,11 @@ pipeline {
            }
         }
         
-        
+    }
+    post{
+        always{
+            sh'docker ps -a'
+            sh'docker images'
+        }
     }
 }
-
