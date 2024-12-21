@@ -1,62 +1,58 @@
 #!/bin/bash
 
-#for pkg in docker.io docker-doc docker-compose docker-compose-v2 podman-docker containerd runc; do sudo apt-get remove $pkg; done
-# Add Docker's official GPG key:
+# Ensure username is provided
+if [ -z "$1" ]; then
+  echo "Usage: $0 <username>"
+  exit 1
+fi
+
+USERNAME=$1
+
 sudo apt-get update
-sudo apt-get install ca-certificates curl
+sudo apt-get install -y ca-certificates curl
+
+# Add Docker's official GPG key
 sudo install -m 0755 -d /etc/apt/keyrings
 sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
 sudo chmod a+r /etc/apt/keyrings/docker.asc
-# Add the repository to Apt sources:
-echo   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
-$(. /etc/os-release && echo "$VERSION_CODENAME") stable" |   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+# Add Docker repository
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+# Install Docker
 sudo apt-get update
-sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
-########################################################
-# adding docker to sudoers group <<<change username>>>
-########################################################
-sudo usermod -aG docker $1 #<your usrname should be here instead of the comment>
+# Add user to Docker group
+sudo usermod -aG docker "$USERNAME"
 sudo systemctl restart docker
-newgrp docker
+echo "Please log out and back in to apply Docker group changes for $USERNAME."
 
-#docker run hello-world
-docker ps -a
-# history
-
+# Test Docker (optional)
+# Uncomment the line below to test Docker after relogging
+# docker run hello-world
 
 # Jenkins Installation
-## Java Prerequisite
+# Install Java prerequisite
 sudo apt update
-sudo apt install fontconfig openjdk-17-jre
-java -version 							
-#next lines are the ouput 
-#openjdk version "17.0.8" 2023-07-18
-#OpenJDK Runtime Environment (build 17.0.8+7-Debian-1deb12u1)
-#OpenJDK 64-Bit Server VM (build 17.0.8+7-Debian-1deb12u1, mixed mode, sharing)
+sudo apt install -y fontconfig openjdk-17-jre
 
-## Jenkins 
-sudo wget -O /usr/share/keyrings/jenkins-keyring.asc \
-  https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
-echo "deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc]" \
-  https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
-  /etc/apt/sources.list.d/jenkins.list > /dev/null
+# Add Jenkins repository and install Jenkins
+sudo wget -O /usr/share/keyrings/jenkins-keyring.asc https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
+echo "deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian-stable binary/" | sudo tee /etc/apt/sources.list.d/jenkins.list > /dev/null
 sudo apt-get update
-sudo apt-get install jenkins
+sudo apt-get install -y jenkins
 
-
-## Creating Docker group and adding jenkins as a user in it
-sudo usermod -aG docker $1  #<your usrname should be here instead of the comment>			# root as an example  or the user
+# Add Jenkins to Docker group
 sudo usermod -aG docker jenkins
 sudo systemctl restart docker
-newgrp docker
 sudo systemctl restart jenkins
-groups jenkins 							
-#check ouput should be -> jenkins : jenkins docker
 
+# Verify Jenkins group membership
+groups jenkins | grep -q docker && echo "Jenkins is part of the Docker group." || echo "Failed to add Jenkins to Docker group."
 
-# Installing Ansible
+# Install Ansible
 sudo apt update
-sudo apt install software-properties-common
+sudo apt install -y software-properties-common
 sudo add-apt-repository --yes --update ppa:ansible/ansible
-sudo apt install ansible
+sudo apt install -y ansible
