@@ -128,7 +128,7 @@ This project demonstrates how to set up a CI/CD pipeline using GitHub, Jenkins, 
 ---
 
 ## Steps to Run the Project
-- If you don't have the tools mentioned, you can download them using [Prerequisites script template](prerequisites-script-template.sh) and give it the first inline argument as linux user.
+- If you don't have the tools mentioned, you can download them using [Prerequisites script template](prerequisites-script-template.sh) and give it the first inline argument as the linux user.
 - All you need to run this project is to clone the repo using
   ```
   git clone git@github.com:Basel-Abouelnour/DevOps-ODC-Final-Project.git
