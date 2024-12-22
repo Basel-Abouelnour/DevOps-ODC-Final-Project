@@ -80,18 +80,34 @@ This project demonstrates how to set up a CI/CD pipeline using GitHub, Jenkins, 
 ***
      
 ### 3. *Automation*
+***NOTE:-***
+ **here you have two options:**
+1. The first is to use Jenkins 
    - Configure Jenkins with GitHub and Docker Hub plugins.
    - Create a Jenkins pipeline as shown in the [jenkinsfile](jenkinsfile) to automate the following tasks:
      - Clone or fetch updates from the repository.
      - Build a Docker image and push it to Docker Hub.
      - runs the ansible playbook
      - Clean previous unused images and containers.
+       
+2. The second one is to use GitHub Actions
+   - No need to gonfigure any plugins like jenkins because GitHub actions will manage this using its 'actions'.
+   - Actions have an advantage over Jenkins which is the Email notification and the native github support. 
+   - Create an equivalent [pipeline](.github/workflows/main.yml) YAML file for the same functionaly as the Jenkinsfile:-
+     - Checkout the repo
+     - Build & Push the image to DockerHub
+     - Cleans up the runner environement
+     - Runs the Ansible Playbook
+   
 ***
        
 ### 4. *Results*
    - The Output of these steps should be the success of the pipeline
      
      ![Pipeline success](images/Pipeline-after-cleanup-closed.png)
+
+     ![Actions Pipeline Success](images)
+     
    - The Weather app should be working on the two vagrant machines
      
      ![VM1 docker ps output](images/VM1-docker-ps.png)
