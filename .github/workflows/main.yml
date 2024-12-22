@@ -1,0 +1,59 @@
+name: The Weather App CI/CD Github Actions
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  pipeline:
+    runs-on: self-hosted
+
+    env:
+      REPO_URL: 'git@github.com:Basel-Abouelnour/DevOps-ODC-Final-Project.git'
+      BRANCH: 'main'
+      LOCAL_REPO_DIR: 'DevOps-ODC-Final-Project'
+      DOCKER_IMAGE: 'baselabouelnour/devops-odc-final-project'
+
+    steps:
+      # Step 1: Checkout the code
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ env.BRANCH }}
+          path: ${{ env.LOCAL_REPO_DIR }}
+
+      # Step 3: Build Docker Image
+      - name: Build Docker Image
+        run: |
+          cd ${{ env.LOCAL_REPO_DIR }}
+          echo "Building Docker Image..."
+          docker build -t ${{ env.DOCKER_IMAGE }} .
+
+      # Step 4: Push Docker Image to Docker Hub
+      - name: Log in to Docker Hub
+        run: echo "${{ secrets.DOCKERHUB_PASS }}" | docker login -u "${{ secrets.DOCKER_USER }}" --password-stdin
+
+      - name: Push Docker Image
+        run: docker push ${{ env.DOCKER_IMAGE }}
+
+      # Step 5: Cleanup Environment
+      - name: Cleanup Environment
+        run: |
+          echo "Cleaning up environment..."
+          docker container prune -f
+          docker image prune -f
+          docker volume prune -f
+
+      # Step 6: Run Ansible Playbook
+      - name: Run Ansible Playbook
+        run: |
+          cd ${{ env.LOCAL_REPO_DIR }}
+          ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i hosts.ini playbook.yml
+
+      # Post-action: List Docker containers and images
+      - name: List Docker Containers
+        run: docker ps -a
+
+      - name: List Docker Images
+        run: docker images
