@@ -1,6 +1,6 @@
 # ODC DevOps Final Project
 
-This project demonstrates how to set up a CI/CD pipeline using GitHub, Jenkins, Docker, and Ansible. It automates the process of deploying a Python Weather app from source code to a Dockerized environment.
+This project demonstrates how to set up a CI/CD pipeline using GitHub, Jenkins or Github Actions, Docker, and Ansible. It automates the process of deploying a Python Weather app from source code to a Dockerized environment.
 
 ---
 
@@ -109,7 +109,8 @@ This project demonstrates how to set up a CI/CD pipeline using GitHub, Jenkins, 
      
      ![Pipeline success](images/Pipeline-after-cleanup-closed.png)
      
-     2. GitHub Actions 
+     2. GitHub Actions
+        
      ![Actions Pipeline Success](images/Pipeline-Success-Actions.png)
      
    - The Weather app should be working on the two vagrant machines
