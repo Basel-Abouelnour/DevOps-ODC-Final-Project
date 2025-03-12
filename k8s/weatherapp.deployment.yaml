@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: weatherapp
+  name: weatherapp
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: weatherapp
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: weatherapp
+    spec:
+      containers:
+      - image: baselabouelnour/devops-odc-final-project
+        name: devops-odc-final-project
